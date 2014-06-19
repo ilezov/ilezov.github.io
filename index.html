@@ -1,0 +1,26 @@
+<html lang="en"><head>
+	<meta charset="utf-8">
+    <title>Hotel Field Demo</title>
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+	<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+	<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+</head>
+<body>
+<script>
+    $(function(){
+        var availableTags = [
+		  "Crowne Plaza Hotel",
+		  "Hilton Hotel",
+		  "Hyatt Hotel",
+		  "Test Hotel"
+        ];
+        $("#tags").autocomplete({
+            source: availableTags,
+            minLength: 0
+        }).bind('focus', function () { $(this).autocomplete("search"); });
+    });
+</script>
+<div class="ui-widget">
+  <label for="tags">Tags: </label>
+  <input id="tags">
+</div>
