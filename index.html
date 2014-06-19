@@ -1,9 +1,9 @@
 <html lang="en"><head>
 	<meta charset="utf-8">
     <title>Hotel Field Demo</title>
-	<link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
-	<script src="//code.jquery.com/jquery-1.10.2.js"></script>
-	<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+	<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+	<script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+	<script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 </head>
 <body>
 <script>
@@ -16,11 +16,18 @@
         ];
         $("#tags").autocomplete({
             source: availableTags,
-            minLength: 0
-        }).bind('focus', function () { $(this).autocomplete("search"); });
+            minLength: 0//,
+			//focus: function( event, ui ) { alert('focus'); }
+        }).bind('focus', function () { $('#tags').autocomplete('search' , ''); });
+		
+		$('#showall').on('click', function () {
+			$('#tags').autocomplete('search' , '');
+		});
     });
 </script>
 <div class="ui-widget">
   <label for="tags">Hotel: </label>
   <input id="tags">
 </div>
+
+<a id="showall">Show All</a>
