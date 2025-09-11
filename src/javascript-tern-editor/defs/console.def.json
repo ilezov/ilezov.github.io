@@ -1,0 +1,47 @@
+{
+    "!name": "console",
+    "console": {
+      "!type": "Console",
+      "!doc": "Global console object for logging and debugging."
+    },
+    "!types": {
+      "Console": {
+        "log":       { "!type": "fn(...args: any) -> void", "!doc": "Outputs a standard log message." },
+        "info":      { "!type": "fn(...args: any) -> void", "!doc": "Outputs an informational message." },
+        "warn":      { "!type": "fn(...args: any) -> void", "!doc": "Outputs a warning message." },
+        "error":     { "!type": "fn(...args: any) -> void", "!doc": "Outputs an error message." },
+        "debug":     { "!type": "fn(...args: any) -> void", "!doc": "Outputs a debug message." },
+        "trace":     { "!type": "fn(...args: any) -> void", "!doc": "Prints a stack trace." },
+        "assert":    { "!type": "fn(condition: bool, ...args: any) -> void", "!doc": "Logs a message if the condition is false." },
+  
+        "dir":       { "!type": "fn(obj: any, options?: object) -> void", "!doc": "Displays an interactive list of the properties of the specified object." },
+        "dirxml":    { "!type": "fn(obj: any) -> void", "!doc": "Displays an XML/HTML representation of the specified element." },
+        "table":     { "!type": "fn(data: any, columns?: [string]) -> void", "!doc": "Displays tabular data as a table." },
+  
+        "group":           { "!type": "fn(...label: any) -> void", "!doc": "Starts a new inline group of log messages." },
+        "groupCollapsed":  { "!type": "fn(...label: any) -> void", "!doc": "Creates a collapsed group of log messages." },
+        "groupEnd":        { "!type": "fn() -> void", "!doc": "Closes the most recently opened group." },
+  
+        "time":     { "!type": "fn(label?: string) -> void", "!doc": "Starts a new timer with an optional label." },
+        "timeLog":  { "!type": "fn(label?: string, ...args: any) -> void", "!doc": "Logs the current value of a timer." },
+        "timeEnd":  { "!type": "fn(label?: string) -> void", "!doc": "Stops a timer and logs the elapsed time." },
+        "timeStamp":{ "!type": "fn(label?: string) -> void", "!doc": "Adds a timestamp marker to the performance profile." },
+  
+        "count":        { "!type": "fn(label?: string) -> void", "!doc": "Logs the number of times count() has been called with the given label." },
+        "countReset":   { "!type": "fn(label?: string) -> void", "!doc": "Resets the counter for the given label." },
+  
+        "clear":    { "!type": "fn() -> void", "!doc": "Clears the console output." },
+        "profile":  { "!type": "fn(label?: string) -> void", "!doc": "Starts a JavaScript CPU profile (engine-specific)." },
+        "profileEnd": { "!type": "fn(label?: string) -> void", "!doc": "Stops the current JavaScript CPU profile." },
+  
+        "memory":   { "!type": "ConsoleMemory", "!doc": "Memory usage statistics (non-standard, Chrome only)." }
+      },
+  
+      "ConsoleMemory": {
+        "jsHeapSizeLimit": { "!type": "number", "!doc": "Maximum size of the JS heap." },
+        "totalJSHeapSize": { "!type": "number", "!doc": "Total allocated JS heap size." },
+        "usedJSHeapSize":  { "!type": "number", "!doc": "Currently active JS heap size." }
+      }
+    }
+  }
+  
