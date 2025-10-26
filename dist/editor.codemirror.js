@@ -23843,14 +23843,99 @@ var JsonEditor = (() => {
   }
 
   // src/json-codemirror/editor.mjs
+  var highlightBracketSection = StateField.define({
+    create() {
+      return Decoration.none;
+    },
+    update(decorations2, tr) {
+      decorations2 = decorations2.map(tr.changes);
+      decorations2 = Decoration.none;
+      const doc2 = tr.state.doc;
+      const selection = tr.state.selection.main;
+      if (selection.empty) {
+        const pos = selection.head;
+        const char = doc2.sliceString(pos, pos + 1);
+        if (char === "{" || char === "[" || char === "(") {
+          const match = findMatchingBracket(doc2, pos, char);
+          if (match !== null) {
+            const decorations3 = [];
+            const startLine = doc2.lineAt(pos);
+            const endLine = doc2.lineAt(match);
+            for (let i = startLine.number; i <= endLine.number; i++) {
+              const line = doc2.line(i);
+              decorations3.push(
+                Decoration.line({
+                  class: "cm-bracket-highlight"
+                }).range(line.from)
+              );
+            }
+            return Decoration.set(decorations3);
+          }
+        } else if (char === "}" || char === "]" || char === ")") {
+          const match = findMatchingBracket(doc2, pos, char);
+          if (match !== null) {
+            const decorations3 = [];
+            const startLine = doc2.lineAt(match);
+            const endLine = doc2.lineAt(pos);
+            for (let i = startLine.number; i <= endLine.number; i++) {
+              const line = doc2.line(i);
+              decorations3.push(
+                Decoration.line({
+                  class: "cm-bracket-highlight"
+                }).range(line.from)
+              );
+            }
+            return Decoration.set(decorations3);
+          }
+        }
+      }
+      return decorations2;
+    },
+    provide: (f) => EditorView.decorations.from(f)
+  });
+  function findMatchingBracket(doc2, pos, bracket2) {
+    const pairs = { "{": "}", "[": "]", "(": ")" };
+    const reversePairs = { "}": "{", "]": "[", ")": "(" };
+    let targetBracket;
+    let direction;
+    if (pairs[bracket2]) {
+      targetBracket = pairs[bracket2];
+      direction = 1;
+    } else if (reversePairs[bracket2]) {
+      targetBracket = reversePairs[bracket2];
+      direction = -1;
+    } else {
+      return null;
+    }
+    let depth = 0;
+    let currentPos = pos + direction;
+    while (currentPos >= 0 && currentPos < doc2.length) {
+      const char = doc2.sliceString(currentPos, currentPos + 1);
+      if (char === bracket2) {
+        depth++;
+      } else if (char === targetBracket) {
+        if (depth === 0) {
+          return currentPos;
+        }
+        depth--;
+      }
+      currentPos += direction;
+    }
+    return null;
+  }
   function createEditorState(initialContents, onchange = null) {
     let extensions = [
       basicSetup,
       json(),
+      highlightBracketSection,
       EditorView.theme({
         "&": { height: "100%", fontSize: "12px" },
         ".cm-scroller": { overflow: "auto" },
-        ".cm-content": { fontFamily: "'Courier New', monospace" }
+        ".cm-content": { fontFamily: "'Courier New', monospace" },
+        ".cm-bracket-highlight": {
+          backgroundColor: "rgba(0, 123, 255, 0.1)",
+          borderLeft: "3px solid #007bff"
+        }
       })
     ];
     if (onchange) {

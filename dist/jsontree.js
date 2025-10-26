@@ -148,7 +148,7 @@ var Is;
         return n(e) && e instanceof HTMLElement;
     }
     e.definedHtml = b;
-    function y(e) {
+    function h(e) {
         let t;
         try {
             t = new URL(e);
@@ -157,12 +157,12 @@ var Is;
         }
         return t !== null && (t.protocol === "http:" || t.protocol === "https:");
     }
-    e.definedUrl = y;
-    function h(e) {
+    e.definedUrl = h;
+    function y(e) {
         const t = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         return t.test(e);
     }
-    e.definedEmail = h;
+    e.definedEmail = y;
     function w(e, t = 1) {
         return !c(e) || e.length < t;
     }
@@ -1974,9 +1974,9 @@ var Filename;
                         t._currentView.controlButtonsOpen[l] = true;
                     }
                     const n = DomElement.createWithHTML(i, "button", "expander", e.text.openCloseSymbolText);
-                    n.onclick = () => y(t, n, i, l);
+                    n.onclick = () => h(t, n, i, l);
                     n.ondblclick = DomElement.cancelBubble;
-                    h(n, i, t._currentView.controlButtonsOpen[l]);
+                    y(n, i, t._currentView.controlButtonsOpen[l]);
                 }
                 const o = DomElement.getStyleValueByName(n, "padding-left", true);
                 t._currentView.currentContentColumns[r].controlButtons = i;
@@ -1987,11 +1987,11 @@ var Filename;
             }
         }
     }
-    function y(e, t, n, o) {
+    function h(e, t, n, o) {
         e._currentView.controlButtonsOpen[o] = !e._currentView.controlButtonsOpen[o];
-        h(t, n, e._currentView.controlButtonsOpen[o]);
+        y(t, n, e._currentView.controlButtonsOpen[o]);
     }
-    function h(e, t, n) {
+    function y(e, t, n) {
         const o = t.querySelectorAll(".control-button");
         const l = o.length;
         for (let e = 0; e < l; e++) {
@@ -2595,8 +2595,8 @@ var Filename;
         let x = null;
         let T = false;
         let b = false;
-        let y = null;
-        let h = DomElement.create(g, "span");
+        let h = null;
+        let y = DomElement.create(g, "span");
         let w = false;
         let D = null;
         const S = !Is.definedString(l);
@@ -2609,17 +2609,17 @@ var Filename;
         if (!S) {
             let t = Str.getMaximumLengthDisplay(l, o.maximum.propertyNameLength, e.text.ellipsisText);
             if (s || !o.showPropertyNameQuotes) {
-                h.innerHTML = t;
+                y.innerHTML = t;
             } else {
-                h.innerHTML = `"${t}"`;
+                y.innerHTML = `"${t}"`;
             }
             if (s && !o.showChildIndexes) {
-                h.parentNode.removeChild(h);
-                h = null;
+                y.parentNode.removeChild(y);
+                y = null;
             }
         } else {
-            h.parentNode.removeChild(h);
-            h = null;
+            y.parentNode.removeChild(y);
+            y = null;
         }
         if (i) {
             f.classList.add("last-item");
@@ -2627,32 +2627,32 @@ var Filename;
         if (o.showDataTypes && !S) {
             D = DomElement.createWithHTML(g, "span", o.showValueColors ? "data-type-color" : "data-type", "");
         }
-        if (Is.defined(h) && !S && o.showValueColors && o.showPropertyNameAndIndexColors) {
-            h.classList.add(u);
+        if (Is.defined(y) && !S && o.showValueColors && o.showPropertyNameAndIndexColors) {
+            y.classList.add(u);
         }
-        if (Is.defined(h) && !S) {
+        if (Is.defined(y) && !S) {
             DomElement.createWithHTML(g, "span", "split", e.text.propertyColonCharacter);
             if (!c) {
-                le(o, t, l, h, s);
+                le(o, t, l, y, s);
             } else {
-                h.ondblclick = DomElement.cancelBubble;
+                y.ondblclick = DomElement.cancelBubble;
             }
             if (Is.definedString(a)) {
                 g.setAttribute(Constants.JSONTREE_JS_ATTRIBUTE_PATH_NAME, a);
             }
             if (!s) {
-                Z(o, l, h);
-                q(o, l, h);
+                Z(o, l, y);
+                q(o, l, y);
             }
             de(o, g, a, B, r);
         }
         const E = Trigger.customEvent(o.events.onCustomDataTypeRender, o._currentView.element, r);
         if (Is.defined(E) && E !== false) {
-            y = E.dataType;
+            h = E.dataType;
             const e = o.ignore;
             const n = `${E.dataType}Values`;
             if (!e.hasOwnProperty(n) || !e[n]) {
-                p = o.showValueColors ? `${y} value` : "value";
+                p = o.showValueColors ? `${h} value` : "value";
                 x = DomElement.createWithHTML(g, "span", E.class, E.html);
                 w = E.allowEditing;
                 re(o, t, l, r, x, s, w);
@@ -2661,9 +2661,9 @@ var Filename;
                 T = true;
             }
         } else if (r === null) {
-            y = "null";
+            h = "null";
             if (!o.ignore.nullValues) {
-                p = o.showValueColors ? `${y} value undefined-or-null` : "value undefined-or-null";
+                p = o.showValueColors ? `${h} value undefined-or-null` : "value undefined-or-null";
                 x = DomElement.createWithHTML(g, "span", p, "null");
                 Trigger.customEvent(o.events.onNullRender, o._currentView.element, x);
                 ue(o, g, i);
@@ -2671,9 +2671,9 @@ var Filename;
                 T = true;
             }
         } else if (r === void 0) {
-            y = "undefined";
+            h = "undefined";
             if (!o.ignore.undefinedValues) {
-                p = o.showValueColors ? `${y} value undefined-or-null` : "value undefined-or-null";
+                p = o.showValueColors ? `${h} value undefined-or-null` : "value undefined-or-null";
                 x = DomElement.createWithHTML(g, "span", p, "undefined");
                 Trigger.customEvent(o.events.onUndefinedRender, o._currentView.element, x);
                 ue(o, g, i);
@@ -2683,9 +2683,9 @@ var Filename;
         } else if (Is.definedFunction(r)) {
             const t = Default.getFunctionName(r, e, o);
             if (t.isLambda) {
-                y = "lambda";
+                h = "lambda";
                 if (!o.ignore.lambdaValues) {
-                    p = o.showValueColors ? `${y} value non-value` : "value non-value";
+                    p = o.showValueColors ? `${h} value non-value` : "value non-value";
                     x = DomElement.createWithHTML(g, "span", p, t.name);
                     Trigger.customEvent(o.events.onLambdaRender, o._currentView.element, x);
                     ue(o, g, i);
@@ -2693,9 +2693,9 @@ var Filename;
                     T = true;
                 }
             } else {
-                y = "function";
+                h = "function";
                 if (!o.ignore.functionValues) {
-                    p = o.showValueColors ? `${y} value non-value` : "value non-value";
+                    p = o.showValueColors ? `${h} value non-value` : "value non-value";
                     x = DomElement.createWithHTML(g, "span", p, t.name);
                     Trigger.customEvent(o.events.onFunctionRender, o._currentView.element, x);
                     ue(o, g, i);
@@ -2704,9 +2704,9 @@ var Filename;
                 }
             }
         } else if (Is.definedBoolean(r)) {
-            y = "boolean";
+            h = "boolean";
             if (!o.ignore.booleanValues) {
-                p = o.showValueColors ? `${y} value` : "value";
+                p = o.showValueColors ? `${h} value` : "value";
                 x = DomElement.createWithHTML(g, "span", p, r);
                 w = o.allowEditing.booleanValues && !c;
                 re(o, t, l, r, x, s, w);
@@ -2716,10 +2716,10 @@ var Filename;
                 T = true;
             }
         } else if (Is.definedFloat(r)) {
-            y = "float";
+            h = "float";
             if (!o.ignore.floatValues) {
                 const e = Convert2.numberToFloatWithDecimalPlaces(r, o.maximum.decimalPlaces);
-                p = o.showValueColors ? `${y} value` : "value";
+                p = o.showValueColors ? `${h} value` : "value";
                 x = DomElement.createWithHTML(g, "span", p, e);
                 w = o.allowEditing.floatValues && !c;
                 re(o, t, l, r, x, s, w);
@@ -2729,10 +2729,10 @@ var Filename;
                 T = true;
             }
         } else if (Is.definedNumber(r)) {
-            y = "number";
+            h = "number";
             if (!o.ignore.numberValues) {
                 let n = Str.getMaximumLengthDisplay(r.toString(), o.maximum.numberLength, e.text.ellipsisText);
-                p = o.showValueColors ? `${y} value` : "value";
+                p = o.showValueColors ? `${h} value` : "value";
                 x = DomElement.createWithHTML(g, "span", p, n);
                 w = o.allowEditing.numberValues && !c;
                 re(o, t, l, r, x, s, w);
@@ -2742,11 +2742,11 @@ var Filename;
                 T = true;
             }
         } else if (Is.definedBigInt(r)) {
-            y = "bigint";
+            h = "bigint";
             if (!o.ignore.bigintValues) {
                 let n = `${r.toString()}n`;
                 let a = Str.getMaximumLengthDisplay(n, o.maximum.bigIntLength, e.text.ellipsisText);
-                p = o.showValueColors ? `${y} value` : "value";
+                p = o.showValueColors ? `${h} value` : "value";
                 x = DomElement.createWithHTML(g, "span", p, a);
                 w = o.allowEditing.bigIntValues && !c;
                 re(o, t, l, r, x, s, w);
@@ -2756,9 +2756,9 @@ var Filename;
                 T = true;
             }
         } else if (Is.definedString(r) && Is.String.guid(r)) {
-            y = "guid";
+            h = "guid";
             if (!o.ignore.guidValues) {
-                p = o.showValueColors ? `${y} value` : "value";
+                p = o.showValueColors ? `${h} value` : "value";
                 x = DomElement.createWithHTML(g, "span", p, r);
                 w = o.allowEditing.guidValues && !c;
                 re(o, t, l, r, x, s, w);
@@ -2768,9 +2768,9 @@ var Filename;
                 T = true;
             }
         } else if (Is.definedString(r) && (Is.String.hexColor(r) || Is.String.rgbColor(r))) {
-            y = "color";
+            h = "color";
             if (!o.ignore.colorValues) {
-                p = o.showValueColors ? `${y} value` : "value";
+                p = o.showValueColors ? `${h} value` : "value";
                 x = DomElement.createWithHTML(g, "span", p, Convert2.colorToSpacedOutString(r));
                 w = o.allowEditing.colorValues && !c;
                 if (o.showValueColors) {
@@ -2783,10 +2783,10 @@ var Filename;
                 T = true;
             }
         } else if (Is.definedString(r) && Is.definedUrl(r)) {
-            y = "url";
+            h = "url";
             if (!o.ignore.urlValues) {
                 let n = Str.getMaximumLengthDisplay(r, o.maximum.urlLength, e.text.ellipsisText);
-                p = o.showValueColors ? `${y} value` : "value";
+                p = o.showValueColors ? `${h} value` : "value";
                 x = DomElement.createWithHTML(g, "span", p, n);
                 w = o.allowEditing.urlValues && !c;
                 if (o.showUrlOpenButtons) {
@@ -2806,10 +2806,10 @@ var Filename;
                 T = true;
             }
         } else if (Is.definedString(r) && Is.definedEmail(r)) {
-            y = "email";
+            h = "email";
             if (!o.ignore.emailValues) {
                 let n = Str.getMaximumLengthDisplay(r, o.maximum.emailLength, e.text.ellipsisText);
-                p = o.showValueColors ? `${y} value` : "value";
+                p = o.showValueColors ? `${h} value` : "value";
                 x = DomElement.createWithHTML(g, "span", p, n);
                 w = o.allowEditing.emailValues && !c;
                 if (o.showEmailOpenButtons) {
@@ -2823,7 +2823,7 @@ var Filename;
                 T = true;
             }
         } else if (Is.definedStringAny(r)) {
-            y = "string";
+            h = "string";
             if (!o.ignore.stringValues || S) {
                 const f = Convert2.stringToParsedValue(r, o);
                 if (Is.defined(f)) {
@@ -2838,7 +2838,7 @@ var Filename;
                         }
                         n = Str.getMaximumLengthDisplay(n, o.maximum.stringLength, e.text.ellipsisText);
                         n = o.showStringQuotes ? `"${n}"` : n;
-                        p = o.showValueColors ? `${y} value` : "value";
+                        p = o.showValueColors ? `${h} value` : "value";
                         w = o.allowEditing.stringValues && !c;
                     } else {
                         p = "no-properties-text";
@@ -2856,9 +2856,9 @@ var Filename;
                 T = true;
             }
         } else if (Is.definedDate(r)) {
-            y = "date";
+            h = "date";
             if (!o.ignore.dateValues) {
-                p = o.showValueColors ? `${y} value` : "value";
+                p = o.showValueColors ? `${h} value` : "value";
                 x = DomElement.createWithHTML(g, "span", p, DateTime.getCustomFormattedDateText(e, r, o));
                 w = o.allowEditing.dateValues && !c;
                 re(o, t, l, r, x, s, w);
@@ -2868,9 +2868,9 @@ var Filename;
                 T = true;
             }
         } else if (Is.definedSymbol(r)) {
-            y = "symbol";
+            h = "symbol";
             if (!o.ignore.symbolValues) {
-                p = o.showValueColors ? `${y} value` : "value";
+                p = o.showValueColors ? `${h} value` : "value";
                 x = DomElement.createWithHTML(g, "span", p, Convert2.symbolToSpacedOutString(r));
                 w = o.allowEditing.symbolValues && !c;
                 re(o, t, l, r, x, s, w);
@@ -2880,9 +2880,9 @@ var Filename;
                 T = true;
             }
         } else if (Is.definedRegExp(r)) {
-            y = "regexp";
+            h = "regexp";
             if (!o.ignore.regexpValues) {
-                p = o.showValueColors ? `${y} value` : "value";
+                p = o.showValueColors ? `${h} value` : "value";
                 x = DomElement.createWithHTML(g, "span", p, r.source.toString());
                 w = o.allowEditing.regExpValues && !c;
                 re(o, t, l, r, x, s, w);
@@ -2892,9 +2892,9 @@ var Filename;
                 T = true;
             }
         } else if (Is.definedImage(r)) {
-            y = "image";
+            h = "image";
             if (!o.ignore.imageValues) {
-                p = o.showValueColors ? `${y} value` : "value";
+                p = o.showValueColors ? `${h} value` : "value";
                 x = DomElement.create(g, "span", p);
                 w = o.allowEditing.imageValues && !c;
                 re(o, t, l, r, x, s, w);
@@ -2906,7 +2906,7 @@ var Filename;
                 T = true;
             }
         } else if (Is.definedHtml(r)) {
-            y = "html";
+            h = "html";
             if (!o.ignore.htmlValues) {
                 const t = Convert2.htmlToObject(r, o.showCssStylesForHtmlObjects);
                 const n = Obj.getPropertyNames(t, o);
@@ -2914,7 +2914,7 @@ var Filename;
                 if (l === 0 && o.ignore.emptyObjects) {
                     T = true;
                 } else {
-                    const r = DomElement.create(g, "span", o.showValueColors ? y : "");
+                    const r = DomElement.create(g, "span", o.showValueColors ? h : "");
                     const s = DomElement.create(f, "div", "object-type-contents");
                     let u = null;
                     let c = null;
@@ -2933,7 +2933,7 @@ var Filename;
                         c = DomElement.createWithHTML(r, "span", "closed-symbols", "{ ... }");
                     }
                     const p = ue(o, r, i);
-                    const T = X(m, p, s, o, t, n, u, c, true, i, a, y, true, d + 1);
+                    const T = X(m, p, s, o, t, n, u, c, true, i, a, h, true, d + 1);
                     if (!T && o.showOpeningClosingCurlyBraces) {
                         u.parentNode.removeChild(u);
                         c.parentNode.removeChild(c);
@@ -2943,10 +2943,10 @@ var Filename;
                 T = true;
             }
         } else if (Is.definedSet(r)) {
-            y = "set";
+            h = "set";
             if (!o.ignore.setValues) {
                 const t = Convert2.setToArray(r);
-                const n = DomElement.create(g, "span", o.showValueColors ? y : "");
+                const n = DomElement.create(g, "span", o.showValueColors ? h : "");
                 const l = DomElement.create(f, "div", "object-type-contents");
                 let s = null;
                 let u = null;
@@ -2965,7 +2965,7 @@ var Filename;
                     u = DomElement.createWithHTML(n, "span", "closed-symbols", "[ ... ]");
                 }
                 const c = ue(o, n, i);
-                const p = G(m, c, l, o, t, s, u, true, i, a, y, true, d + 1);
+                const p = G(m, c, l, o, t, s, u, true, i, a, h, true, d + 1);
                 if (!p && o.showOpeningClosingSquaredBrackets) {
                     s.parentNode.removeChild(s);
                     u.parentNode.removeChild(u);
@@ -2974,9 +2974,9 @@ var Filename;
                 T = true;
             }
         } else if (Is.definedArray(r)) {
-            y = "array";
+            h = "array";
             if (!o.ignore.arrayValues) {
-                const t = DomElement.create(g, "span", o.showValueColors ? y : "");
+                const t = DomElement.create(g, "span", o.showValueColors ? h : "");
                 const n = DomElement.create(f, "div", "object-type-contents");
                 let l = null;
                 let s = null;
@@ -2995,7 +2995,7 @@ var Filename;
                     s = DomElement.createWithHTML(t, "span", "closed-symbols", "[ ... ]");
                 }
                 const u = ue(o, t, i);
-                const c = G(m, u, n, o, r, l, s, true, i, a, y, false, d + 1);
+                const c = G(m, u, n, o, r, l, s, true, i, a, h, false, d + 1);
                 if (!c && o.showOpeningClosingSquaredBrackets) {
                     l.parentNode.removeChild(l);
                     s.parentNode.removeChild(s);
@@ -3004,7 +3004,7 @@ var Filename;
                 T = true;
             }
         } else if (Is.definedMap(r)) {
-            y = "map";
+            h = "map";
             if (!o.ignore.mapValues) {
                 const t = Convert2.mapToObject(r);
                 const n = Obj.getPropertyNames(t, o);
@@ -3012,7 +3012,7 @@ var Filename;
                 if (l === 0 && o.ignore.emptyObjects) {
                     T = true;
                 } else {
-                    const r = DomElement.create(g, "span", o.showValueColors ? y : "");
+                    const r = DomElement.create(g, "span", o.showValueColors ? h : "");
                     const s = DomElement.create(f, "div", "object-type-contents");
                     let u = null;
                     let c = null;
@@ -3031,7 +3031,7 @@ var Filename;
                         c = DomElement.createWithHTML(r, "span", "closed-symbols", "{ ... }");
                     }
                     const p = ue(o, r, i);
-                    const T = X(m, p, s, o, t, n, u, c, true, i, a, y, true, d + 1);
+                    const T = X(m, p, s, o, t, n, u, c, true, i, a, h, true, d + 1);
                     if (!T && o.showOpeningClosingCurlyBraces) {
                         u.parentNode.removeChild(u);
                         c.parentNode.removeChild(c);
@@ -3041,14 +3041,14 @@ var Filename;
                 T = true;
             }
         } else if (Is.definedObject(r)) {
-            y = "object";
+            h = "object";
             if (!o.ignore.objectValues) {
                 const t = Obj.getPropertyNames(r, o);
                 const n = t.length;
                 if (n === 0 && o.ignore.emptyObjects) {
                     T = true;
                 } else {
-                    const l = DomElement.create(g, "span", o.showValueColors ? y : "");
+                    const l = DomElement.create(g, "span", o.showValueColors ? h : "");
                     const s = DomElement.create(f, "div", "object-type-contents");
                     let u = null;
                     let c = null;
@@ -3067,7 +3067,7 @@ var Filename;
                         c = DomElement.createWithHTML(l, "span", "closed-symbols", "{ ... }");
                     }
                     const p = ue(o, l, i);
-                    const T = X(m, p, s, o, r, t, u, c, true, i, a, y, false, d + 1);
+                    const T = X(m, p, s, o, r, t, u, c, true, i, a, h, false, d + 1);
                     if (!T && o.showOpeningClosingCurlyBraces) {
                         u.parentNode.removeChild(u);
                         c.parentNode.removeChild(c);
@@ -3077,9 +3077,9 @@ var Filename;
                 T = true;
             }
         } else {
-            y = "unknown";
+            h = "unknown";
             if (!o.ignore.unknownValues) {
-                p = o.showValueColors ? `${y} value non-value` : "value non-value";
+                p = o.showValueColors ? `${h} value non-value` : "value non-value";
                 x = DomElement.createWithHTML(g, "span", p, r.toString());
                 Trigger.customEvent(o.events.onUnknownRender, o._currentView.element, x);
                 ue(o, g, i);
@@ -3088,7 +3088,7 @@ var Filename;
             }
         }
         if (!S && !b) {
-            te(o, y);
+            te(o, h);
         }
         if (T) {
             n.removeChild(f);
@@ -3097,20 +3097,20 @@ var Filename;
                 if (!S) {
                     Z(o, r, x);
                     q(o, r, x);
-                    U(o, y, x);
+                    U(o, h, x);
                     me(o, x, w, t, r, l, s, V);
                 }
                 if (Is.defined(D)) {
-                    if (y !== "null" && y !== "undefined" && y !== "array" && y !== "object" && y !== "map" && y !== "set") {
-                        D.innerHTML = `(${y})`;
+                    if (h !== "null" && h !== "undefined" && h !== "array" && h !== "object" && h !== "map" && h !== "set") {
+                        D.innerHTML = `(${h})`;
                     } else {
                         D.parentNode.removeChild(D);
                         D = null;
                     }
                 }
                 if (v) {
-                    oe(o, a, h, D, x);
-                    se(o, x, r, y, w);
+                    oe(o, a, y, D, x);
+                    se(o, x, r, h, w);
                 } else {
                     x.ondblclick = DomElement.cancelBubble;
                 }
@@ -3429,6 +3429,10 @@ var Filename;
             let c = false;
             if (!o) {
                 e._currentView.selectedValues = [];
+                const t = e._currentView.element.querySelectorAll(".highlight-selected-section");
+                t.forEach((e => {
+                    e.classList.remove("highlight-selected-section");
+                }));
             }
             for (let t = 0; t < u; t++) {
                 const r = a[t].column.querySelectorAll(".object-type-value-title");
@@ -3458,9 +3462,17 @@ var Filename;
             if (!s) {
                 t.classList.add("highlight-selected");
                 e._currentView.selectedValues.push(r);
+                const n = t.closest(".object-type-value");
+                if (n) {
+                    n.classList.add("highlight-selected-section");
+                }
             } else {
                 t.classList.remove("highlight-selected");
                 e._currentView.selectedValues.splice(e._currentView.selectedValues.indexOf(r), 1);
+                const n = t.closest(".object-type-value");
+                if (n) {
+                    n.classList.remove("highlight-selected-section");
+                }
             }
             Trigger.customEvent(e.events.onSelectionChange, e._currentView.element);
             T(l, e);
@@ -3479,6 +3491,10 @@ var Filename;
                     const o = l[t];
                     if (o.classList.contains("highlight-selected")) {
                         o.classList.remove("highlight-selected");
+                        const e = o.closest(".object-type-value");
+                        if (e) {
+                            e.classList.remove("highlight-selected-section");
+                        }
                         n = true;
                     }
                     if (ge(e) && o.classList.contains("highlight-compare")) {
@@ -3546,20 +3562,20 @@ var Filename;
             DomElement.createWithHTML(o, "p", "notice-text-title", e.text.dragAndDropTitleText);
             DomElement.createWithHTML(o, "p", "notice-text-description", e.text.dragAndDropDescriptionText);
             t._currentView.dragAndDropBackground = n;
-            t._currentView.element.ondragover = () => ye(t, n);
-            t._currentView.element.ondragenter = () => ye(t, n);
+            t._currentView.element.ondragover = () => he(t, n);
+            t._currentView.element.ondragenter = () => he(t, n);
             n.ondragover = DomElement.cancelBubble;
             n.ondragenter = DomElement.cancelBubble;
             n.ondragleave = () => n.style.display = "none";
-            n.ondrop = e => he(e, t);
+            n.ondrop = e => ye(e, t);
         }
     }
-    function ye(e, t) {
+    function he(e, t) {
         if (!e._currentView.columnDragging) {
             t.style.display = "block";
         }
     }
-    function he(e, t) {
+    function ye(e, t) {
         DomElement.cancelBubble(e);
         t._currentView.dragAndDropBackground.style.display = "none";
         if (Is.defined(window.FileReader) && e.dataTransfer.files.length > 0) {

@@ -108,6 +108,19 @@
     JsonTree.js - Container
     -------------------------------------------------------------------------
 */
+div.highlight-selected-section div {
+  border-color: var(--json-tree-js-highlight-selected-color) !important;
+}
+div.highlight-selected-section .opened-arrow {
+  border-color: #000 !important;
+}
+div.highlight-selected-section div.object-border {
+  border-color: var(--json-tree-js-container-object-left-border-color) !important;
+}
+div.highlight-selected-section div.object-border-bottom {
+  border-color: var(--json-tree-js-container-object-left-border-color) !important;
+}
+
 div.json-tree-js {
   -moz-user-select: none;
   -webkit-user-select: none;
@@ -197,8 +210,8 @@ div.json-tree-js div.opened-arrow,
 div.json-tree-js div.closed-arrow {
   position: relative;
   display: inline-block;
-  width: 14px;
-  height: 14px;
+  width: 12px;
+  height: 12px;
   margin-right: calc(var(--json-tree-js-spacing));
   cursor: pointer;
   transition: var(--json-tree-js-transition);
@@ -206,7 +219,7 @@ div.json-tree-js div.closed-arrow {
   border: 1px solid var(--json-tree-js-color-snow-white);
   text-align: center;
   line-height: 12px;
-  font-size: 12px;
+  font-size: 10px;
   font-weight: bold;
   color: var(--json-tree-js-color-snow-white);
 }
@@ -1039,6 +1052,10 @@ div.json-tree-js div.object-border-bottom {
   width: var(--json-tree-js-spacing-toggle-size);
   border-bottom: var(--json-tree-js-border-size) dotted var(--json-tree-js-container-object-left-border-color);
 }
+div.json-tree-js div.object-type-value.highlight-selected-section {
+  background-color: var(--json-tree-js-highlight-selected-color);
+  border: var(--json-tree-js-border-size) dashed var(--json-tree-js-highlight-selected-border-color) !important;
+}
 
 /*
     -------------------------------------------------------------------------
@@ -1075,10 +1092,13 @@ div.json-tree-js div.object-type-contents div.object-type-value-wrapped {
   margin-top: calc(var(--json-tree-js-spacing) / 2);
   margin-bottom: calc(var(--json-tree-js-spacing) / 2);
   margin-left: var(--json-tree-js-indentation-size);
+  border: var(--json-tree-js-border-size) dashed #fff;
 }
 div.json-tree-js div.object-type-contents div.object-type-value div.object-type-value-title,
 div.json-tree-js div.object-type-contents div.object-type-value-wrapped div.object-type-value-title {
   width: fit-content;
+  border: var(--json-tree-js-border-size) dashed #fff;
+  min-height: 20px !important;
 }
 div.json-tree-js div.object-type-contents div.object-type-value img,
 div.json-tree-js div.object-type-contents div.object-type-value-wrapped img {
@@ -1094,7 +1114,7 @@ div.json-tree-js div.object-type-contents div.object-type-value div.highlight-se
 div.json-tree-js div.object-type-contents div.object-type-value div.highlight-compare,
 div.json-tree-js div.object-type-contents div.object-type-value-wrapped div.highlight-selected,
 div.json-tree-js div.object-type-contents div.object-type-value-wrapped div.highlight-compare {
-  padding: calc(var(--json-tree-js-spacing) / 2);
+  padding: 0;
   border-radius: var(--json-tree-js-border-radius);
   transition: var(--json-tree-js-transition);
   transition-property: background-color;
@@ -1107,6 +1127,11 @@ div.json-tree-js div.object-type-contents div.object-type-value-wrapped div.high
 div.json-tree-js div.object-type-contents div.object-type-value div.highlight-compare,
 div.json-tree-js div.object-type-contents div.object-type-value-wrapped div.highlight-compare {
   background-color: var(--json-tree-js-highlight-compare-color);
+}
+div.json-tree-js div.object-type-contents div.object-type-value div.object-type-value.highlight-selected-section,
+div.json-tree-js div.object-type-contents div.object-type-value-wrapped div.object-type-value.highlight-selected-section {
+  background-color: var(--json-tree-js-highlight-selected-color);
+  border: var(--json-tree-js-border-size) dashed var(--json-tree-js-highlight-selected-border-color);
 }
 div.json-tree-js div.object-type-contents div.object-type-value span.data-type,
 div.json-tree-js div.object-type-contents div.object-type-value span.data-type-color,
@@ -1144,7 +1169,7 @@ div.json-tree-js div.object-type-contents div.object-type-value-wrapped span.edi
   border: var(--json-tree-js-border-size) solid var(--json-tree-js-editable-border-color);
   outline: none !important;
   box-shadow: none !important;
-  padding: calc(var(--json-tree-js-spacing) / 2) !important;
+  padding: 0 !important;
   border-radius: var(--json-tree-js-border-radius-editable) !important;
   max-width: 250px;
   cursor: text !important;
