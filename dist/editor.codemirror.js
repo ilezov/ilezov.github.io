@@ -23854,12 +23854,22 @@ var JsonEditor = (() => {
       const selection = tr.state.selection.main;
       if (selection.empty) {
         const pos = selection.head;
-        const char = doc2.sliceString(pos, pos + 1);
+        const charAfter2 = doc2.sliceString(pos, pos + 1);
+        const charBefore2 = pos > 0 ? doc2.sliceString(pos - 1, pos) : "";
+        let char = "";
+        let checkPos = pos;
+        if (charAfter2 === "{" || charAfter2 === "[" || charAfter2 === "(" || charAfter2 === "}" || charAfter2 === "]" || charAfter2 === ")") {
+          char = charAfter2;
+          checkPos = pos;
+        } else if (charBefore2 === "{" || charBefore2 === "[" || charBefore2 === "(" || charBefore2 === "}" || charBefore2 === "]" || charBefore2 === ")") {
+          char = charBefore2;
+          checkPos = pos - 1;
+        }
         if (char === "{" || char === "[" || char === "(") {
-          const match = findMatchingBracket(doc2, pos, char);
+          const match = findMatchingBracket(doc2, checkPos, char);
           if (match !== null) {
             const decorations3 = [];
-            const startLine = doc2.lineAt(pos);
+            const startLine = doc2.lineAt(checkPos);
             const endLine = doc2.lineAt(match);
             for (let i = startLine.number; i <= endLine.number; i++) {
               const line = doc2.line(i);
@@ -23872,11 +23882,11 @@ var JsonEditor = (() => {
             return Decoration.set(decorations3);
           }
         } else if (char === "}" || char === "]" || char === ")") {
-          const match = findMatchingBracket(doc2, pos, char);
+          const match = findMatchingBracket(doc2, checkPos, char);
           if (match !== null) {
             const decorations3 = [];
             const startLine = doc2.lineAt(match);
-            const endLine = doc2.lineAt(pos);
+            const endLine = doc2.lineAt(checkPos);
             for (let i = startLine.number; i <= endLine.number; i++) {
               const line = doc2.line(i);
               decorations3.push(
@@ -23935,6 +23945,22 @@ var JsonEditor = (() => {
         ".cm-bracket-highlight": {
           backgroundColor: "rgba(0, 123, 255, 0.1)",
           borderLeft: "3px solid #007bff"
+        },
+        // Replace fold icons with solid triangles ▼▶
+        ".cm-foldGutter span": {
+          fontSize: "0 !important"
+        },
+        ".cm-foldGutter span::after": {
+          fontSize: "10px",
+          fontFamily: "sans-serif",
+          content: '"\u25BC"',
+          color: "#666"
+        },
+        ".cm-foldGutter span[title*='Unfold']::after": {
+          content: '"\u25B6"'
+        },
+        ".cm-foldGutter span[title*='Fold']::after": {
+          content: '"\u25BC"'
         }
       })
     ];

@@ -1,4 +1,3 @@
-@charset "UTF-8";
 /*
  * JsonTree.js Library v4.7.1
  *
@@ -208,36 +207,31 @@ div.json-tree-js div.no-arrow {
 }
 div.json-tree-js div.opened-arrow,
 div.json-tree-js div.closed-arrow {
-  position: relative;
+  position: absolute;
   display: inline-block;
-  width: 12px;
-  height: 12px;
-  margin-right: calc(var(--json-tree-js-spacing));
+  width: 9px;
+  height: 9px;
   cursor: pointer;
   transition: var(--json-tree-js-transition);
   transition-property: opacity;
-  border: 1px solid var(--json-tree-js-color-snow-white);
-  text-align: center;
-  line-height: 12px;
-  font-size: 10px;
-  font-weight: bold;
-  color: var(--json-tree-js-color-snow-white);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  top: 4px;
+}
+div.json-tree-js div.opened-arrow + span,
+div.json-tree-js div.closed-arrow + span {
+  margin-left: 14px;
 }
 div.json-tree-js div.opened-arrow:hover,
 div.json-tree-js div.closed-arrow:hover {
   opacity: 0.7;
 }
-div.json-tree-js div.opened-arrow::before {
-  content: "−";
-  position: absolute;
-  top: -3px;
-  left: 2px;
+div.json-tree-js div.opened-arrow {
+  background-image: url("../dist/icons/minus.png");
 }
-div.json-tree-js div.closed-arrow::before {
-  content: "+";
-  position: absolute;
-  top: -3px;
-  left: 2px;
+div.json-tree-js div.closed-arrow {
+  background-image: url("../dist/icons/plus.png");
 }
 
 /*
@@ -984,6 +978,7 @@ div.json-tree-js div.object-type-title {
   font-weight: var(--json-tree-js-bold-weight-heavy);
   text-align: left !important;
   width: fit-content;
+  margin-bottom: 3px;
 }
 div.json-tree-js div.object-type-title span.main-title {
   transition: var(--json-tree-js-transition);
@@ -1026,10 +1021,8 @@ div.json-tree-js div.object-type-title span.closed-symbols:hover:not(.no-hover):
     -------------------------------------------------------------------------
 */
 div.json-tree-js div.object-type-contents {
-  margin-top: calc(var(--json-tree-js-spacing) / 2);
   text-align: left !important;
   width: fit-content;
-  margin-bottom: var(--json-tree-js-spacing);
   position: relative;
 }
 div.json-tree-js div.object-type-contents img {
@@ -1089,8 +1082,6 @@ div.json-tree-js div.object-type-contents div.object-type-value-no-padding {
 div.json-tree-js div.object-type-contents div.object-type-value,
 div.json-tree-js div.object-type-contents div.object-type-value-wrapped {
   white-space: nowrap;
-  margin-top: calc(var(--json-tree-js-spacing) / 2);
-  margin-bottom: calc(var(--json-tree-js-spacing) / 2);
   margin-left: var(--json-tree-js-indentation-size);
   border: var(--json-tree-js-border-size) dashed #fff;
 }
@@ -1098,7 +1089,8 @@ div.json-tree-js div.object-type-contents div.object-type-value div.object-type-
 div.json-tree-js div.object-type-contents div.object-type-value-wrapped div.object-type-value-title {
   width: fit-content;
   border: var(--json-tree-js-border-size) dashed #fff;
-  min-height: 20px !important;
+  min-height: 19px !important;
+  position: relative;
 }
 div.json-tree-js div.object-type-contents div.object-type-value img,
 div.json-tree-js div.object-type-contents div.object-type-value-wrapped img {

@@ -1859,7 +1859,7 @@ var Filename;
                     }
                     r -= o;
                     const s = DomElement.create(n.lineNumbers, "div", "contents-column-line-number");
-                    const u = t.lineNumbers.addDots ? "." : "";
+                    const u = "";
                     if (t.lineNumbers.padNumbers) {
                         s.innerHTML = `${Str.padNumber(e, i.toString().length)}${u}`;
                     } else {
